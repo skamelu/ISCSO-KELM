@@ -1,0 +1,61 @@
+### **Description of Each File's Function**  
+
+#### **1. `main.m` (Main Execution File)**  
+- **Core Purpose**: Orchestrates the entire algorithm workflow and serves as the program's entry point.  
+- **Key Functions**:  
+  - Loads datasets (for classification or regression).  
+  - Calls `ISCSO` to optimize hyperparameters (`C` and `gamma`).  
+  - Trains the `KELM` model using the optimized parameters.  
+  - Evaluates model performance and outputs results (e.g., classification accuracy, regression error).  
+- **Features**:  
+  - Flexible configuration of algorithm parameters (e.g., population size, iterations).  
+  - Supports switching between different kernel functions (RBF/linear/polynomial).  
+
+---  
+
+#### **2. `ISCSO.m` (Improved Sand Cat Swarm Optimization Algorithm)**  
+- **Core Purpose**: Optimizes hyperparameters (`C` and `gamma`) for `KELM`.  
+- **Key Functions**:  
+  - Initializes the sand cat population and explores optimal solutions within the search space.  
+  - Accelerates convergence via improved search strategies (e.g., dynamic balance between global exploration and local exploitation).  
+  - Calls fitness functions (e.g., classification accuracy or regression error) to evaluate parameter performance.  
+- **Features**:  
+  - Reduces the risk of premature convergence compared to the original algorithm.  
+  - Outputs the best parameter combination and its corresponding fitness value.  
+
+---  
+
+#### **3. `RouletteWheelSelection.m` (Roulette Wheel Selection Function)**  
+- **Core Purpose**: Performs individual selection operations in the `ISCSO` algorithm.  
+- **Key Functions**:  
+  - Assigns selection probabilities based on fitness values, favoring higher-fitness individuals.  
+  - Maintains population diversity to avoid local optima.  
+- **Features**:  
+  - A common selection mechanism in evolutionary algorithms.  
+  - Works with `ISCSO` to improve parameter search efficiency.  
+
+---  
+
+#### **4. `KELM.m` (Kernel Extreme Learning Machine Model)**  
+- **Core Purpose**: The core machine learning model for classification or regression tasks.  
+- **Key Functions**:  
+  - Trains the model using input data (`X` and `Y`) and hyperparameters (`C`, `gamma`, kernel type).  
+  - Provides a prediction interface (`predict` function) for classification labels or continuous values.  
+  - Supports multiple kernel functions (e.g., RBF kernel for nonlinear problems).  
+- **Features**:  
+  - Significantly faster training than traditional SVM.  
+  - Better generalization performance than standard ELM (Extreme Learning Machine).  
+
+---  
+
+### **Collaborative Workflow**  
+1. **`main.m`** initiates the process → loads data and sets parameters.  
+2. **`ISCSO.m`** calls **`RouletteWheelSelection.m`** for population optimization → obtains optimal `C` and `gamma`.  
+3. **`main.m`** passes optimized parameters to **`KELM.m`** → trains the model and outputs predictions.  
+
+### **Summary**  
+- **`ISCSO.m`** and **`RouletteWheelSelection.m`** work together for intelligent parameter optimization.  
+- **`KELM.m`** handles efficient modeling and prediction.  
+- **`main.m`** acts as the hub, coordinating all modules and delivering final results.  
+
+This modular design ensures **automated hyperparameter tuning** and **high-performance modeling**, making it suitable for complex data tasks.
